@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getTypeConfig, getCleanArea, limitTags, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
+import { getTypeConfig, getCleanArea, limitTags, splitTitle, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
 
 const { title = 'Resource', area = 'Perso', subtitle, tags } = defineProps<{
   title?: string
@@ -10,7 +10,8 @@ const { title = 'Resource', area = 'Perso', subtitle, tags } = defineProps<{
 
 const t = getTypeConfig('Resource')
 const areaInfo = getCleanArea(area)
-const titleSize = titleFontSize(title)
+const split = splitTitle(title)
+const titleSize = titleFontSize(split.main || title)
 const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
 const tagList = limitTags(tags, 2)
 </script>
@@ -38,18 +39,25 @@ const tagList = limitTags(tags, 2)
         <div class="flex flex-1 justify-end"></div>
       </div>
 
-      <!-- Center: title + subtitle -->
-      <div class="flex flex-col items-center gap-6">
+      <!-- Center: eyebrow (if split) + main title + subtitle -->
+      <div class="flex flex-col items-center gap-4">
+        <div
+          v-if="split.eyebrow"
+          class="text-zinc-500"
+          style="font-weight: 400; font-size: 36px; letter-spacing: 0.02em; max-width: 1000px; word-break: break-word;"
+        >
+          {{ split.eyebrow }}
+        </div>
         <h1
           class="text-white text-center"
-          style="font-weight: 700; font-size: 72px; line-height: 1.2; max-width: 1040px; word-break: break-word;"
+          :style="{ fontWeight: 700, fontSize: titleSize, lineHeight: '1.1', maxWidth: '1040px', overflow: 'hidden', lineClamp: '3', wordBreak: 'break-word' }"
         >
-          {{ title }}
+          {{ split.main || title }}
         </h1>
         <p
           v-if="subtitle"
           class="text-zinc-400 text-center"
-          style="font-weight: 400; font-size: 28px; line-height: 1.4; max-width: 900px; word-break: break-word;"
+          :style="{ fontWeight: 400, fontSize: subSize, lineHeight: '1.4', maxWidth: '900px', overflow: 'hidden', lineClamp: '2', wordBreak: 'break-word' }"
         >
           {{ subtitle }}
         </p>

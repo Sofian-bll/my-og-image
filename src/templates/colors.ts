@@ -82,3 +82,13 @@ export function limitTags(tagsString: string | undefined, max: number = 2): stri
   if (!tagsString) return []
   return tagsString.split(',').map(t => t.trim()).filter(Boolean).slice(0, max)
 }
+
+export function splitTitle(title: string): { eyebrow: string; main: string } {
+  if (!title) return { eyebrow: '', main: '' }
+  const idx = title.indexOf(' - ')
+  if (idx === -1) return { eyebrow: '', main: title }
+  return {
+    eyebrow: title.slice(0, idx).trim(),
+    main: title.slice(idx + 3).trim(),
+  }
+}
