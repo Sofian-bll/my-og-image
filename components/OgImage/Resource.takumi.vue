@@ -10,7 +10,7 @@ const { title = 'Resource', area = 'Perso', subtitle, tags } = defineProps<{
 
 const t = getTypeConfig('Resource')
 const areaInfo = getCleanArea(area)
-const split = splitTitle(title)
+const split = splitTitle(title, 'Resource')
 const titleSize = titleFontSize(split.main || title)
 const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
 const tagList = limitTags(tags, 2)

@@ -83,12 +83,27 @@ export function limitTags(tagsString: string | undefined, max: number = 2): stri
   return tagsString.split(',').map(t => t.trim()).filter(Boolean).slice(0, max)
 }
 
-export function splitTitle(title: string): { eyebrow: string; main: string } {
+import { getEyebrowConfig } from './eyebrow-config'
+
+export function splitTitle(title: string, type: string = 'Resource'): { eyebrow: string; main: string } {
   if (!title) return { eyebrow: '', main: '' }
-  const idx = title.indexOf(' - ')
-  if (idx === -1) return { eyebrow: '', main: title }
-  return {
-    eyebrow: title.slice(0, idx).trim(),
-    main: title.slice(idx + 3).trim(),
+
+  const config = getEyebrowConfig(type)
+  if (!config.enabled) return { eyebrow: '', main: title }
+
+  for (const sep of config.separators) {
+    const idx = title.indexOf(sep)
+    if (idx !== -1) {
+      const eyebrow = title.slice(0, idx).trim()
+      const main = title.slice(idx + sep.length).trim()
+
+      if (main.length < config.minMainLength) {
+        return { eyebrow: '', main: title }
+      }
+
+      return { eyebrow, main }
+    }
   }
+
+  return { eyebrow: '', main: title }
 }

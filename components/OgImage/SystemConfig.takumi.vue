@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getTypeConfig, getCleanArea, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
+import { getTypeConfig, getCleanArea, splitTitle, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
 
 const { title = 'System', area, subtitle } = defineProps<{
   title?: string
@@ -9,7 +9,8 @@ const { title = 'System', area, subtitle } = defineProps<{
 
 const t = getTypeConfig('SystemConfig')
 const areaInfo = area ? getCleanArea(area) : { label: '', svg: '' }
-const titleSize = titleFontSize(title)
+const split = splitTitle(title, 'SystemConfig')
+const titleSize = titleFontSize(split.main || title)
 const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
 </script>
 
@@ -36,16 +37,23 @@ const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
       </div>
 
       <div class="flex flex-col items-center gap-6">
+        <div
+          v-if="split.eyebrow"
+          class="text-zinc-500"
+          style="font-weight: 400; font-size: 36px; letter-spacing: 0.02em; max-width: 1000px; word-break: break-word;"
+        >
+          {{ split.eyebrow }}
+        </div>
         <h1
           class="text-white text-center"
-          style="font-weight: 700; font-size: 72px; line-height: 1.2; max-width: 1040px; word-break: break-word;"
+          :style="{ fontWeight: 700, fontSize: titleSize, lineHeight: '1.1', maxWidth: '1040px', overflow: 'hidden', lineClamp: '3', wordBreak: 'break-word' }"
         >
-          {{ title }}
+          {{ split.main || title }}
         </h1>
         <p
           v-if="subtitle"
           class="text-zinc-400 text-center"
-          style="font-weight: 400; font-size: 28px; line-height: 1.4; max-width: 900px; word-break: break-word;"
+          :style="{ fontWeight: 400, fontSize: subSize, lineHeight: '1.4', maxWidth: '900px', overflow: 'hidden', lineClamp: '2', wordBreak: 'break-word' }"
         >
           {{ subtitle }}
         </p>
