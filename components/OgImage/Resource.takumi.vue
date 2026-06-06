@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getTypeConfig, cleanArea, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
+import { getTypeConfig, getCleanArea, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
 
 const { title = 'Resource', area = 'Perso', subtitle } = defineProps<{
   title?: string
@@ -8,7 +8,7 @@ const { title = 'Resource', area = 'Perso', subtitle } = defineProps<{
 }>()
 
 const t = getTypeConfig('Resource')
-const areaClean = cleanArea(area)
+const areaInfo = getCleanArea(area)
 const titleSize = titleFontSize(title)
 const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
 </script>
@@ -21,38 +21,54 @@ const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
     />
     <div class="absolute inset-0 ring-1 ring-white/10 z-10" />
     <div class="relative z-20 w-full h-full flex flex-col justify-between p-20">
-      <div class="flex justify-start">
-        <span
-          class="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xl font-bold uppercase tracking-widest"
-          :style="{ background: `${t.accent}15`, color: t.accent, border: `1px solid ${t.accent}30` }"
-        >
-          {{ t.emoji }} {{ t.label }}
-        </span>
+      
+      <!-- Top bar -->
+      <div class="flex justify-between items-start w-full">
+        <div class="flex flex-1 justify-start">
+          <span
+            class="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
+            :style="{ fontWeight: 700, background: `${t.accent}15`, color: t.accent, border: `1px solid ${t.accent}30` }"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            {{ t.label }}
+          </span>
+        </div>
+        <div class="flex flex-1 justify-end">
+          <!-- No status for resources -->
+        </div>
       </div>
 
-      <div class="flex flex-col items-center gap-8" :style="{ maxWidth: '1040px', margin: '0 auto', width: '100%' }">
+      <!-- Center content -->
+      <div class="flex flex-col items-center gap-8 w-full" style="max-width: 1040px; margin: 0 auto;">
         <h1
-          class="text-white font-extrabold text-center"
-          :style="{ fontSize: titleSize, lineHeight: '1.15', maxWidth: '100%', overflow: 'hidden', lineClamp: '3', wordBreak: 'break-word' }"
+          class="text-white text-center"
+          :style="{ fontWeight: 700, fontSize: titleSize, lineHeight: '1.2', maxWidth: '100%', overflow: 'hidden', lineClamp: '3', wordBreak: 'break-word' }"
         >
           {{ title }}
         </h1>
         <p
           v-if="subtitle"
           class="text-zinc-400 text-center"
-          :style="{ fontSize: subSize, lineHeight: '1.3', maxWidth: '900px', overflow: 'hidden', lineClamp: '2', wordBreak: 'break-word' }"
+          :style="{ fontWeight: 400, fontSize: subSize, lineHeight: '1.4', maxWidth: '900px', overflow: 'hidden', lineClamp: '2', wordBreak: 'break-word' }"
         >
           {{ subtitle }}
         </p>
       </div>
 
-      <div class="grid grid-cols-3 items-end text-xl font-bold uppercase tracking-widest">
-        <div />
-        <div class="flex justify-center text-zinc-500">
-          {{ areaClean }}
+      <!-- Bottom bar: 3-col flex -->
+      <div class="w-full flex justify-between items-end text-xl uppercase tracking-widest text-zinc-500" style="font-weight: 700;">
+        <div class="flex-1 flex justify-start">
+          <!-- No priority for resources -->
         </div>
-        <div />
+        <div class="flex-1 flex justify-center items-center gap-3" :style="{ color: '#a1a1aa' }">
+          <div v-html="areaInfo.svg" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px;" />
+          {{ areaInfo.label }}
+        </div>
+        <div class="flex-1 flex justify-end items-center gap-3">
+          <!-- No due_date for resources -->
+        </div>
       </div>
+      
     </div>
   </div>
 </template>

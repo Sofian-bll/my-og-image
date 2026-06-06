@@ -10,7 +10,8 @@ export default defineNuxtConfig({
   ogImage: {
     renderer: 'takumi',
     fonts: [
-      { name: 'Syne', weights: [400, 700, 800], provider: 'google' },
+      'Syne:400',
+      'Syne:700'
     ],
     defaults: {
       width: 1200,
