@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getTypeConfig, statusColors, statusLabels, getCleanArea, formatDate, formatDateShort, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
+import { getTypeConfig, statusColors, statusLabels, getCleanArea, formatDateShort, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
 
 const { title = 'Task', area = 'Perso', status, due_date, project, contexts, subtitle } = defineProps<{
   title?: string
@@ -18,7 +18,7 @@ const stLabel = status ? statusLabels[status] : null
 const dateEnd = formatDateShort(due_date)
 const titleSize = titleFontSize(title)
 const subSize = subtitle ? subtitleFontSize(subtitle) : '0'
-const contextList = contexts ? contexts.split(',').map(c => c.trim()).filter(Boolean) : []
+const contextList = contexts?.split(',').map(c => c.trim()).filter(Boolean) ?? []
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const contextList = contexts ? contexts.split(',').map(c => c.trim()).filter(Boo
       <div class="flex justify-between items-start w-full">
         <div class="flex flex-1 justify-start">
           <span
-            class="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
             :style="{ fontWeight: 700, background: `${t.accent}15`, color: t.accent, border: `1px solid ${t.accent}30` }"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
@@ -44,7 +44,7 @@ const contextList = contexts ? contexts.split(',').map(c => c.trim()).filter(Boo
         <div class="flex flex-1 justify-end">
           <span
             v-if="stColor && stLabel"
-            class="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
             :style="{ fontWeight: 700, background: `${stColor}15`, color: stColor, border: `1px solid ${stColor}30` }"
           >
             <div :style="{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: stColor }" />
@@ -53,50 +53,57 @@ const contextList = contexts ? contexts.split(',').map(c => c.trim()).filter(Boo
         </div>
       </div>
 
-      <!-- Center content -->
-      <div class="flex flex-col items-center gap-8 w-full" style="max-width: 1040px; margin: 0 auto;">
-        <div v-if="contextList.length > 0" class="flex items-center gap-3 text-zinc-500 text-2xl" style="font-weight: 400;">
-          <span v-for="(ctx, i) in contextList" :key="ctx" style="display: flex; align-items: center; gap: 12px;">
-            <span v-if="i > 0" style="color: #52525b;">·</span>
+      <!-- Center: context eyebrow + title + subtitle -->
+      <div class="flex flex-col items-center gap-6">
+        <div
+          v-if="contextList.length > 0"
+          class="flex items-center gap-6 text-zinc-500"
+          style="font-weight: 400; font-size: 24px;"
+        >
+          <span
+            v-for="(ctx, i) in contextList"
+            :key="ctx"
+            class="flex items-center gap-2"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-            {{ ctx }}
+            <span style="text-transform: none;">{{ ctx }}</span>
           </span>
         </div>
         <h1
           class="text-white text-center"
-          :style="{ fontWeight: 700, fontSize: titleSize, lineHeight: '1.2', maxWidth: '100%', overflow: 'hidden', lineClamp: '3', wordBreak: 'break-word' }"
+          style="font-weight: 700; font-size: 72px; line-height: 1.2; max-width: 1040px; word-break: break-word;"
         >
           {{ title }}
         </h1>
         <p
           v-if="subtitle"
           class="text-zinc-400 text-center"
-          :style="{ fontWeight: 400, fontSize: subSize, lineHeight: '1.4', maxWidth: '900px', overflow: 'hidden', lineClamp: '2', wordBreak: 'break-word' }"
+          style="font-weight: 400; font-size: 28px; line-height: 1.4; max-width: 900px; word-break: break-word;"
         >
           {{ subtitle }}
         </p>
       </div>
 
-      <!-- Bottom bar: 3-col flex -->
-      <div class="w-full flex justify-between items-end text-xl uppercase tracking-widest" style="font-weight: 700;">
-        <div class="flex-1 flex justify-start">
-          <!-- No priority for tasks -->
-        </div>
-        <div class="flex-1 flex justify-center items-center gap-3" :style="{ color: '#a1a1aa' }">
-          <div v-if="project" class="flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-            <span style="font-weight: 400; text-transform: none;">{{ project }}</span>
+      <!-- Bottom bar: 3-col flex, gap-6 -->
+      <div class="w-full flex items-end" style="font-weight: 700; font-size: 22px;">
+        <div class="flex flex-1 justify-start"></div>
+
+        <div class="flex flex-1 justify-center">
+          <div v-if="project" class="flex items-center gap-2 text-zinc-400" style="font-weight: 400;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            <span style="text-transform: none;">{{ project }}</span>
           </div>
-          <div v-else class="flex items-center gap-3">
-            <div v-html="areaInfo.svg" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px;" />
-            {{ areaInfo.label }}
+          <div v-else class="flex items-center gap-2 text-zinc-500">
+            <div v-html="areaInfo.svg" style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px;" />
+            <span class="uppercase tracking-widest">{{ areaInfo.label }}</span>
           </div>
         </div>
-        <div class="flex-1 flex justify-end items-center gap-3 text-zinc-500">
-          <span v-if="dateEnd" style="display: flex; align-items: center; gap: 12px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-            {{ dateEnd }}
-          </span>
+
+        <div class="flex flex-1 justify-end">
+          <div v-if="dateEnd" class="flex items-center gap-2 text-zinc-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            <span style="font-weight: 400;">{{ dateEnd }}</span>
+          </div>
         </div>
       </div>
 

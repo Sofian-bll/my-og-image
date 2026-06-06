@@ -21,49 +21,47 @@ const descSize = description ? subtitleFontSize(description) : '0'
     />
     <div class="absolute inset-0 ring-1 ring-white/10 z-10" />
     <div class="relative z-20 w-full h-full flex flex-col justify-between p-20">
-      
-      <!-- Top bar -->
+
       <div class="flex justify-between items-start w-full">
         <div class="flex flex-1 justify-start">
           <span
-            class="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
             :style="{ fontWeight: 700, background: `${t.accent}15`, color: t.accent, border: `1px solid ${t.accent}30` }"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 20 5-5-5-5"/><path d="M18 20V10a4 4 0 0 0-4-4H5"/></svg>
             {{ t.label }}
           </span>
         </div>
-        <div class="flex flex-1 justify-end">
-        </div>
+        <div class="flex flex-1 justify-end"></div>
       </div>
 
-      <!-- Center content -->
-      <div class="flex flex-col items-center gap-8 w-full" style="max-width: 1040px; margin: 0 auto;">
+      <div class="flex flex-col items-center gap-6">
         <h1
           class="text-white text-center"
-          :style="{ fontWeight: 700, fontSize: titleSize, lineHeight: '1.2', maxWidth: '100%', overflow: 'hidden', lineClamp: '3', wordBreak: 'break-word' }"
+          style="font-weight: 700; font-size: 64px; line-height: 1.2; max-width: 1040px; word-break: break-word;"
         >
           {{ title }}
         </h1>
         <p
           v-if="description"
           class="text-center"
-          :style="{ fontWeight: 400, fontSize: descSize, lineHeight: '1.4', maxWidth: '900px', overflow: 'hidden', lineClamp: '4', wordBreak: 'break-word', color: t.accent, opacity: 0.8 }"
+          style="font-weight: 400; font-size: 28px; line-height: 1.4; max-width: 900px; word-break: break-word; color: #fb7185; opacity: 0.8;"
         >
           {{ description }}
         </p>
       </div>
 
-      <!-- Bottom bar: 3-col flex -->
-      <div class="w-full flex justify-between items-end text-xl uppercase tracking-widest text-zinc-500" style="font-weight: 700;">
-        <div class="flex-1 flex justify-start"></div>
-        <div class="flex-1 flex justify-center items-center gap-3" :style="{ color: '#a1a1aa' }">
-          <div v-html="areaInfo.svg" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px;" />
-          {{ areaInfo.label }}
+      <div class="w-full flex items-end" style="font-weight: 700; font-size: 22px;">
+        <div class="flex flex-1 justify-start"></div>
+        <div class="flex flex-1 justify-center">
+          <div v-if="areaInfo.label !== 'Unknown'" class="flex items-center gap-2 text-zinc-500">
+            <div v-html="areaInfo.svg" style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px;" />
+            <span class="uppercase tracking-widest">{{ areaInfo.label }}</span>
+          </div>
         </div>
-        <div class="flex-1 flex justify-end items-center gap-3"></div>
+        <div class="flex flex-1 justify-end"></div>
       </div>
-      
+
     </div>
   </div>
 </template>
