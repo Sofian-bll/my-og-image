@@ -5,13 +5,3 @@ services:
     restart: unless-stopped
     ports:
       - "3042:3000"
-    networks:
-      - homelab
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.og-image.rule=Host(`og.sofian.lab`)"
-      - "traefik.http.services.og-image.loadbalancer.server.port=3000"
-
-networks:
-  homelab:
-    external: true

@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY package.json bun.lock ./
 
-RUN corepack enable && corepack prepare bun@latest --activate
+RUN apk add --no-cache bash curl unzip && curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:$PATH"
 
 RUN bun install --frozen-lockfile
 

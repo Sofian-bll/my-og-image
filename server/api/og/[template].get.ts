@@ -1,6 +1,14 @@
+const pascalMap: Record<string, string> = {
+  project: 'Project',
+  resource: 'Resource',
+  task: 'Task',
+  aspiration: 'Aspiration',
+  systemconfig: 'SystemConfig',
+}
+
 export default defineEventHandler(async (event) => {
-  const template = getRouterParam(event, 'template') || 'default'
-  const PascalCase = template.charAt(0).toUpperCase() + template.slice(1)
+  const template = getRouterParam(event, 'template') || 'project'
+  const PascalCase = pascalMap[template] ?? (template.charAt(0).toUpperCase() + template.slice(1))
   const query = getQuery(event)
 
   const props: Record<string, string> = {}

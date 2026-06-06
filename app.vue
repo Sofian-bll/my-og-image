@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-defineOgImage('Default', {
+defineOgImage('SystemConfig', {
   title: 'Sofian OS',
   area: 'Resource',
 })
