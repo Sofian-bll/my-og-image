@@ -22,10 +22,10 @@ export const statusLabels: Record<string, string> = {
   dropped: 'dropped',
 }
 
-export const prioritySymbols: Record<string, string> = {
-  low: '◉',
-  medium: '◉◉',
-  high: '◉◉◉',
+export const priorityConfig: Record<string, { label: string; color: string; blocks: string }> = {
+  low:    { label: 'LOW',    color: '#3b82f6', blocks: '■□□' },
+  medium: { label: 'MEDIUM', color: '#f59e0b', blocks: '■■□' },
+  high:   { label: 'HIGH',   color: '#ef4444', blocks: '■■■' },
 }
 
 export function getTypeConfig(type: string) {
@@ -41,4 +41,19 @@ export function formatDate(date: string | undefined): string {
   const d = new Date(date)
   if (isNaN(d.getTime())) return date
   return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+export function titleFontSize(title: string): string {
+  const len = title.length
+  if (len < 30) return '72px'
+  if (len < 60) return '56px'
+  if (len < 90) return '44px'
+  return '36px'
+}
+
+export function subtitleFontSize(sub: string): string {
+  const len = sub.length
+  if (len < 60) return '32px'
+  if (len < 120) return '26px'
+  return '22px'
 }
