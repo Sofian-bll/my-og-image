@@ -4,6 +4,7 @@ const pascalMap: Record<string, string> = {
   task: 'Task',
   aspiration: 'Aspiration',
   systemconfig: 'SystemConfig',
+  epitechproject: 'EpitechProject',
 }
 
 export default defineEventHandler(async (event) => {
