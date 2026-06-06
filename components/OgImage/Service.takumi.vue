@@ -31,10 +31,10 @@ const identityInfo = [
       :style="{ background: `radial-gradient(ellipse 50% 50% at 40% 60%, ${t.from}33, transparent), radial-gradient(ellipse 40% 40% at 60% 30%, ${t.to}44, transparent), radial-gradient(ellipse 25% 25% at 50% 50%, ${t.accent}22, transparent)` }"
     />
     <div class="absolute inset-0 ring-1 ring-white/10 z-10" />
-    <div class="relative z-20 w-full h-full flex flex-col justify-between p-24">
+    <div class="relative z-20 w-full h-full p-24 flex flex-col">
 
       <!-- Top Bar -->
-      <div class="flex justify-between items-start w-full">
+      <div class="flex justify-between items-start w-full absolute top-24 left-24 right-24">
         <span
           class="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xl uppercase tracking-widest font-bold"
           :style="{ background: `${t.accent}15`, color: t.accent, border: `1px solid ${t.accent}30` }"
@@ -53,10 +53,10 @@ const identityInfo = [
       </div>
 
       <!-- Main Identity Section -->
-      <div class="flex flex-col items-center gap-8">
+      <div class="flex-1 flex flex-col items-center justify-center gap-8">
         <h1
           class="text-white text-center font-bold"
-          :style="{ fontSize: '88px', lineHeight: '1.1', maxWidth: '1040px', overflow: 'hidden', lineClamp: 2, wordBreak: 'break-word' }"
+          :style="{ fontSize: '100px', lineHeight: '1', maxWidth: '1040px', overflow: 'hidden', lineClamp: 2, wordBreak: 'break-word' }"
         >
           {{ service }}
         </h1>
@@ -76,7 +76,7 @@ const identityInfo = [
       </div>
 
       <!-- Footer Context -->
-      <div class="flex justify-between items-end w-full">
+      <div class="flex justify-between items-end w-full absolute bottom-24 left-24 right-24">
         <div class="flex items-center gap-4">
           <span
             v-if="host"
@@ -92,7 +92,7 @@ const identityInfo = [
           <span
             v-for="tag in tagList"
             :key="tag"
-            class="px-5 py-2 rounded-lg text-lg font-medium text-zinc-500"
+            class="px-5 py-2 rounded-lg text-lg font-bold uppercase tracking-widest text-zinc-500"
             :style="{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }"
           >
             #{{ tag }}
