@@ -280,12 +280,12 @@ def update_frontmatter_og_image(content: str, new_url: str) -> str:
     body = content[m.end():]
     lines = fm_text.split("\n")
 
-    # Try to find existing og-image line
+    # Try to find existing cover line
     new_lines = []
     found = False
     for line in lines:
-        if line.startswith("og-image:"):
-            new_lines.append(f"og-image: \"{new_url}\"")
+        if line.startswith("cover:"):
+            new_lines.append(f"cover: \"{new_url}\"")
             found = True
         else:
             new_lines.append(line)
@@ -293,18 +293,12 @@ def update_frontmatter_og_image(content: str, new_url: str) -> str:
     if not found:
         # Insert after due_date, scheduled_date, or status — in that order
         insert_keys = ["due_date", "scheduled_date", "status", "priority", "area", "title", "type"]
-        inserted = False
-        for i, line in enumerate(new_lines):
-            key = line.split(":", 1)[0].strip()
-            if key in insert_keys:
-                # Find the LAST matching key
-                pass
 
         # Find the rightmost matching key
         for key in insert_keys:
             for i in range(len(new_lines) - 1, -1, -1):
                 if new_lines[i].startswith(f"{key}:"):
-                    new_lines.insert(i + 1, f"og-image: \"{new_url}\"")
+                    new_lines.insert(i + 1, f"cover: \"{new_url}\"")
                     inserted = True
                     break
             if inserted:
@@ -312,7 +306,7 @@ def update_frontmatter_og_image(content: str, new_url: str) -> str:
 
         if not inserted:
             # Fallback: append at end of frontmatter
-            new_lines.append(f"og-image: \"{new_url}\"")
+            new_lines.append(f"cover: \"{new_url}\"")
 
     new_fm = "\n".join(new_lines)
     return f"---\n{new_fm}\n---\n{body}"
@@ -370,7 +364,7 @@ def process_note(path: Path, host: str, apply: bool, backup: bool) -> tuple[str,
     if not new_url:
         return ("SKIP_NO_TITLE", "", "")
 
-    current_url = fm.get("og-image", "")
+    current_url = fm.get("cover", "") or fm.get("og-image", "")
 
     if current_url == new_url:
         return ("NOOP", current_url, new_url)
