@@ -106,6 +106,8 @@ def update_cover(content: str, new_url: str) -> str:
 
 def detect_note_type(fm: dict) -> tuple[str, str]:
     """Returns (endpoint, display_name) based on frontmatter schema."""
+    if fm.get("severity"):
+        return "task", "Task"
     if fm.get("hostname"):
         return "machine", "Machine"
     if fm.get("service"):
@@ -115,14 +117,14 @@ def detect_note_type(fm: dict) -> tuple[str, str]:
         return "resource", "Resource"
     if "Architecture" in t:
         return "systemconfig", "System Config"
-    if "Incident" in t or fm.get("severity"):
+    if "Incident" in t:
         return "task", "Task"
     if fm.get("area"):
         return "resource", "Resource"
     return "", ""
 
 
-def build_url(host: str, endpoint: str, fm: dict) -> str:
+def build_url(host: str, endpoint: str, fm: dict, path: Path) -> str:
     params = {}
     if endpoint == "service":
         params = {
@@ -161,9 +163,15 @@ def build_url(host: str, endpoint: str, fm: dict) -> str:
             "subtitle": fm.get("subtitle", "") or "",
         }
     elif endpoint == "task":
+        # Handle cases where title might be missing but service exists (e.g. Incidents)
+        note_title = fm.get("title")
+        if not note_title:
+            # Try to get filename if title is missing
+            note_title = path.stem
+            
         params = {
-            "title": fm.get("title", "") or fm.get("service", "") or f"Incident {fm.get('date', '')}",
-            "area": fm.get("area", ""),
+            "title": note_title,
+            "area": fm.get("area", "Homelab"),
             "status": fm.get("status", "").strip(),
             "project": fm.get("service", "") or "",
         }
@@ -185,7 +193,7 @@ def process_note(path: Path, host: str, apply: bool, backup: bool) -> tuple:
     endpoint, _ = detect_note_type(fm)
     if not endpoint:
         return ("SKIP_NO_TYPE", "", "")
-    new_url = build_url(host, endpoint, fm)
+    new_url = build_url(host, endpoint, fm, path)
     if not new_url:
         return ("SKIP_NO_TITLE", "", "")
     current = fm.get("cover") or fm.get("og-image") or ""
