@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getTypeConfig, statusColors, statusLabels, getCleanArea, formatDateShort, splitTitle, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
+import { getTypeConfig, statusColors, statusLabels, getCleanArea, getContextIcon, formatDateShort, splitTitle, titleFontSize, subtitleFontSize } from '../../src/templates/colors'
 
 const { title = 'Task', area = 'Perso', status, due_date, project, contexts, subtitle } = defineProps<{
   title?: string
@@ -29,20 +29,29 @@ const contextList = contexts?.split(',').map(c => c.trim()).filter(Boolean) ?? [
       :style="{ background: `radial-gradient(ellipse 50% 50% at 40% 60%, ${t.from}33, transparent), radial-gradient(ellipse 40% 40% at 60% 30%, ${t.to}44, transparent), radial-gradient(ellipse 25% 25% at 50% 50%, ${t.accent}22, transparent)` }"
     />
     <div class="absolute inset-0 ring-1 ring-white/10 z-10" />
-    <div class="relative z-20 w-full h-full flex flex-col justify-between p-20">
+    <div class="relative z-20 w-full h-full flex flex-col justify-between p-24">
 
-      <!-- Top bar -->
+      <!-- Top bar: badge type + context pills + status -->
       <div class="flex justify-between items-start w-full">
-        <div class="flex flex-1 justify-start">
+        <div class="flex flex-wrap items-center gap-3">
           <span
-            class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xl uppercase tracking-widest shrink-0"
             :style="{ fontWeight: 700, background: `${t.accent}15`, color: t.accent, border: `1px solid ${t.accent}30` }"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
             {{ t.label }}
           </span>
+          <span
+            v-for="ctx in contextList"
+            :key="ctx"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-lg font-medium"
+            :style="{ background: 'rgba(255,255,255,0.06)', color: '#a1a1aa', border: '1px solid rgba(255,255,255,0.1)', textTransform: 'none', letterSpacing: '0' }"
+          >
+            <span v-html="getContextIcon(ctx)" style="display: flex; align-items: center; justify-content: center; width: 18px; height: 18px;" />
+            {{ ctx }}
+          </span>
         </div>
-        <div class="flex flex-1 justify-end">
+        <div class="flex shrink-0">
           <span
             v-if="stColor && stLabel"
             class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xl uppercase tracking-widest"
@@ -54,22 +63,8 @@ const contextList = contexts?.split(',').map(c => c.trim()).filter(Boolean) ?? [
         </div>
       </div>
 
-      <!-- Center: context eyebrow + title + subtitle -->
-      <div class="flex flex-col items-center gap-6">
-        <div
-          v-if="contextList.length > 0"
-          class="flex items-center gap-6 text-zinc-500"
-          style="font-weight: 400; font-size: 24px;"
-        >
-          <span
-            v-for="(ctx, i) in contextList"
-            :key="ctx"
-            class="flex items-center gap-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-            <span style="text-transform: none;">{{ ctx }}</span>
-          </span>
-        </div>
+      <!-- Center: eyebrow (if split) + main title + subtitle -->
+      <div class="flex flex-col items-center gap-4">
         <div
           v-if="split.eyebrow"
           class="text-zinc-500"
@@ -92,7 +87,7 @@ const contextList = contexts?.split(',').map(c => c.trim()).filter(Boolean) ?? [
         </p>
       </div>
 
-      <!-- Bottom bar: 3-col flex, gap-6 -->
+      <!-- Bottom bar: 3-col grid -->
       <div class="w-full flex items-end" style="font-weight: 700; font-size: 22px;">
         <div class="flex flex-1 justify-start"></div>
 
