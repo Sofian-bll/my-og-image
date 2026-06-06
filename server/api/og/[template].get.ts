@@ -20,8 +20,9 @@ export default defineEventHandler(async (event) => {
     ([k, v]) => `${k}_${encodeURIComponent(v)}`,
   )
 
-  const encodedProps = btoa(JSON.stringify(props))
-  const encodedPath = btoa(`__og-image__/image/${template}/og.png`)
+  const toBase64 = (str: string) => Buffer.from(str, 'utf-8').toString('base64')
+  const encodedProps = toBase64(JSON.stringify(props))
+  const encodedPath = toBase64(`__og-image__/image/${template}/og.png`)
 
   const url = [
     `c_${PascalCase}`,
