@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>og-image — Open Graph Image Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0b0f;
+    --surface: #14151a;
+    --text: #e8e6e3;
+    --muted: #8b8d91;
+    --accent: #5b7fff;
+    --border: #2a2b30;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding: 80px 0 48px;
+    text-align: center;
+  }
+  .header-logo {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 24px;
+  }
+  .badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .badge.highlight { color: var(--accent); border-color: var(--accent); }
+
+  .og-preview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 auto 64px;
+    max-width: 600px;
+  }
+  .og-preview-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #1a1b20;
+    border-bottom: 1px solid var(--border);
+  }
+  .og-preview-dot { width: 10px; height: 10px; border-radius: 50%; background: #3a3b40; }
+  .og-preview-dot:nth-child(1) { background: #ff5f56; }
+  .og-preview-dot:nth-child(2) { background: #ffbd2e; }
+  .og-preview-dot:nth-child(3) { background: #27c93f; }
+  .og-preview-url {
+    font-size: 0.7rem;
+    color: #666;
+    margin-left: 12px;
+    font-family: monospace;
+  }
+  .og-card {
+    aspect-ratio: 1200 / 630;
+    background: linear-gradient(135deg, #0f1117 0%, #1a1c28 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10% 8%;
+    position: relative;
+    overflow: hidden;
+  }
+  .og-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(91,127,255,0.12) 0%, transparent 60%);
+  }
+  .og-card-eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 600;
+    position: relative;
+    margin-bottom: 4%;
+  }
+  .og-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    position: relative;
+  }
+  .og-card-footer {
+    position: absolute;
+    bottom: 8%;
+    left: 8%;
+    font-size: 0.55rem;
+    color: var(--muted);
+    position: relative;
+  }
+  @media (max-width: 640px) {
+    .og-preview { max-width: 100%; }
+    .og-card-title { font-size: 1.1rem; }
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+  }
+  section { padding: 48px 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .feature h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .feature p { font-size: 0.9rem; color: var(--muted); }
+
+  .terminal {
+    background: #0d0e12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    padding: 8px 14px;
+    background: #1a1b20;
+    display: flex;
+    gap: 8px;
+  }
+  .terminal-bar span { width: 10px; height: 10px; border-radius: 50%; background: #444; }
+  .terminal-bar span:nth-child(1) { background: #ff5f56; }
+  .terminal-bar span:nth-child(2) { background: #ffbd2e; }
+  .terminal-bar span:nth-child(3) { background: #27c93f; }
+  .terminal-body { padding: 16px 20px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; }
+  .terminal-body .cmd { color: var(--accent); }
+  .terminal-body .comment { color: var(--muted); }
+
+  .tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-tag {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  footer {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header class="container">
+  <img src="../assets/logo.svg" alt="og-image" class="header-logo"/>
+  <h1>og-image</h1>
+  <p class="subtitle">Dynamic Open Graph image generator for structured metadata. Built with Nuxt and the Takumi renderer.</p>
+  <div class="badges">
+    <span class="badge highlight">MIT</span>
+    <span class="badge">Nuxt 4</span>
+    <span class="badge">Docker</span>
+    <span class="badge">Takumi</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="og-preview">
+    <div class="og-preview-bar">
+      <span class="og-preview-dot"></span>
+      <span class="og-preview-dot"></span>
+      <span class="og-preview-dot"></span>
+      <span class="og-preview-url">og.sofian.lab/api/og/project?title=Sofian+OS</span>
+    </div>
+    <div class="og-card">
+      <div class="og-card-eyebrow">Project</div>
+      <div class="og-card-title">Sofian OS</div>
+      <div class="og-card-footer">og.sofian.lab</div>
+    </div>
+  </div>
+</div>
+
+<section class="container">
+  <h2>Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>8 Template Types</h3>
+      <p>Project, Resource, Task, Aspiration, Machine, Service, System Config, and Epitech Project.</p>
+    </div>
+    <div class="feature">
+      <h3>Takumi Renderer</h3>
+      <p>Clean, type-driven layouts via @takumi-rs/core. No canvas, no chromium — pure SVG.</p>
+    </div>
+    <div class="feature">
+      <h3>Obsidian Sync</h3>
+      <p>Batch-apply OG URLs across an entire vault with Python scripts. Dry-run mode included.</p>
+    </div>
+    <div class="feature">
+      <h3>Docker Ready</h3>
+      <p>Multi-stage build + compose file. Deploy to any VPS in minutes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Quick Start</h2>
+  <div class="terminal">
+    <div class="terminal-bar"><span></span><span></span><span></span></div>
+    <div class="terminal-body">
+      <span class="comment"># Install dependencies</span><br/>
+      <span class="cmd">pnpm</span> install<br/><br/>
+      <span class="comment"># Development server</span><br/>
+      <span class="cmd">pnpm</span> dev<br/><br/>
+      <span class="comment"># Production with Docker</span><br/>
+      <span class="cmd">docker compose</span> up -d
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Built With</h2>
+  <div class="tech-grid">
+    <span class="tech-tag">Nuxt 4</span>
+    <span class="tech-tag">nuxt-og-image</span>
+    <span class="tech-tag">@takumi-rs/core</span>
+    <span class="tech-tag">Docker</span>
+    <span class="tech-tag">TypeScript</span>
+    <span class="tech-tag">Syne</span>
+  </div>
+</section>
+
+<footer>
+  <p>MIT &copy; 2026 Sofian &middot; <a href="https://github.com/Sofian-bll/og-image-v2">GitHub</a></p>
+</footer>
+
+</body>
+</html>
