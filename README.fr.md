@@ -66,7 +66,7 @@ my-og-image genere des images Open Graph 1200×630 a partir du frontmatter Markd
 ## Comment ca marche
 
 ```mermaid
-graph TB
+graph LR
     subgraph "Appel API"
         A["🌐 Requete HTTP<br/>/api/og/:template?title=..."] --> B{Matcher de Template<br/>server/api/og/}
     end

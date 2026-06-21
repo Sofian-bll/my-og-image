@@ -66,7 +66,7 @@ my-og-image generates rich 1200×630 Open Graph images from Markdown frontmatter
 ## How It Works
 
 ```mermaid
-graph TB
+graph LR
     subgraph "API Call"
         A["🌐 HTTP Request<br/>/api/og/:template?title=..."] --> B{Template Matcher<br/>server/api/og/}
     end
