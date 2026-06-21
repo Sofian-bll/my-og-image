@@ -33,7 +33,6 @@
 - [What is this?](#what-is-this)
 - [Features](#features)
 - [How It Works](#how-it-works)
-- [Demo](#demo)
 - [Built With](#built-with)
 - [Prerequisites](#prerequisites)
 - [Quick Start](#quick-start)
@@ -67,26 +66,27 @@ my-og-image generates rich 1200×630 Open Graph images from Markdown frontmatter
 ## How It Works
 
 ```mermaid
-graph LR
-    A[Markdown Note] --> B[/api/og/:template]
-    B --> C[Template Component]
-    C --> D[Takumi Renderer]
-    D --> E[nuxt-og-image]
-    E --> F[1200x630 PNG]
-    F --> G[Social Card]
+graph TB
+    subgraph "API Call"
+        A["🌐 HTTP Request<br/>/api/og/:template?title=..."] --> B{Template Matcher<br/>server/api/og/}
+    end
+
+    subgraph "Rendering Pipeline"
+        B --> C["Vue Component<br/>*.takumi.vue"]
+        C --> D["Takumi Layout<br/>@takumi-rs/core"]
+        D --> E["Satori → SVG → PNG<br/>1200×630"]
+    end
+
+    subgraph "Response"
+        E --> F["Cache + Headers<br/>nuxt-og-image"]
+        F --> G["🌐 Social Card<br/>Twitter · Discord · Embeds"]
+    end
+
+    H["📂 Obsidian Vault"] -.->|batch inject| I["apply-og-images.py"]
+    I -.-> A
 ```
 
-A note's frontmatter (title, subtitle, tags, status, dates) is passed as query parameters to `/api/og/:template`. The matching Vue component assembles a Takumi layout, the renderer produces a PNG, and `nuxt-og-image` handles caching and response headers. Each template has its own gradient, icon palette, and typographic scale — all driven by the type config in `src/templates/`.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Demo
-
-<p align="center">
-  <img src="docs/assets/screenshot.png" alt="my-og-image landing page" width="800"/>
-</p>
-
-Visit the live landing page: [sofian-bll.github.io/my-og-image](https://sofian-bll.github.io/my-og-image/)
+A note's frontmatter (title, subtitle, tags, status, dates) is passed as query parameters to `/api/og/:template`. The dynamic route handler matches the template, the Vue component assembles a Takumi layout, Satori renders it to a 1200×630 PNG, and `nuxt-og-image` handles caching and response headers. Each template has its own gradient, icon palette, and typographic scale — all driven by the type config in `src/templates/`. The Obsidian sync script (dashed line) batch-injects OG URLs across an entire vault.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -110,22 +110,23 @@ Visit the live landing page: [sofian-bll.github.io/my-og-image](https://sofian-b
 
 ## Quick Start
 
-```bash
-# Install dependencies
-pnpm install
-
-# Development server (http://localhost:3000)
-pnpm dev
-```
-
-### Docker
+### Docker (recommended)
 
 ```bash
 # Production
 docker compose up -d
 
-# Development (hot reload)
+# Development with hot reload
 docker compose -f docker-compose.dev.yml up -d
+```
+
+The multi-stage `Dockerfile` builds a lean production image. Both compose files are ready to go — no `.env` needed.
+
+### Local
+
+```bash
+pnpm install
+pnpm dev        # → http://localhost:3000
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

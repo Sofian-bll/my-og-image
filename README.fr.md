@@ -33,7 +33,6 @@
 - [C'est quoi ?](#cest-quoi-)
 - [Fonctionnalites](#fonctionnalites)
 - [Comment ca marche](#comment-ca-marche)
-- [Demo](#demo)
 - [Stack technique](#stack-technique)
 - [Prerequis](#prerequis)
 - [Demarrage rapide](#demarrage-rapide)
@@ -67,26 +66,27 @@ my-og-image genere des images Open Graph 1200×630 a partir du frontmatter Markd
 ## Comment ca marche
 
 ```mermaid
-graph LR
-    A[Note Markdown] --> B[/api/og/:template]
-    B --> C[Composant Template]
-    C --> D[Renderer Takumi]
-    D --> E[nuxt-og-image]
-    E --> F[PNG 1200x630]
-    F --> G[Carte Sociale]
+graph TB
+    subgraph "Appel API"
+        A["🌐 Requete HTTP<br/>/api/og/:template?title=..."] --> B{Matcher de Template<br/>server/api/og/}
+    end
+
+    subgraph "Pipeline de Rendu"
+        B --> C["Composant Vue<br/>*.takumi.vue"]
+        C --> D["Layout Takumi<br/>@takumi-rs/core"]
+        D --> E["Satori → SVG → PNG<br/>1200×630"]
+    end
+
+    subgraph "Reponse"
+        E --> F["Cache + Headers<br/>nuxt-og-image"]
+        F --> G["🌐 Carte Sociale<br/>Twitter · Discord · Embeds"]
+    end
+
+    H["📂 Vault Obsidian"] -.->|injection batch| I["apply-og-images.py"]
+    I -.-> A
 ```
 
-Le frontmatter d'une note (titre, sous-titre, tags, statut, dates) est passe en parametres de requete a `/api/og/:template`. Le composant Vue correspondant assemble un layout Takumi, le renderer produit un PNG, et `nuxt-og-image` gere le cache et les en-tetes HTTP. Chaque template a son propre degrade, sa palette d'icones et son echelle typographique — le tout pilote par la config de type dans `src/templates/`.
-
-<p align="right">(<a href="#readme-top">haut de page</a>)</p>
-
-## Demo
-
-<p align="center">
-  <img src="docs/assets/screenshot.png" alt="page d'accueil my-og-image" width="800"/>
-</p>
-
-Voir la landing page : [sofian-bll.github.io/my-og-image](https://sofian-bll.github.io/my-og-image/)
+Le frontmatter d'une note (titre, sous-titre, tags, statut, dates) est passe en parametres de requete a `/api/og/:template`. Le handler de route dynamique selectionne le template, le composant Vue assemble un layout Takumi, Satori le rend en PNG 1200×630, et `nuxt-og-image` gere le cache et les en-tetes HTTP. Chaque template a son propre degrade, sa palette d'icones et son echelle typographique — le tout pilote par la config de type dans `src/templates/`. Le script de sync Obsidian (ligne pointillee) injecte les URLs OG en masse dans tout un vault.
 
 <p align="right">(<a href="#readme-top">haut de page</a>)</p>
 
@@ -110,22 +110,23 @@ Voir la landing page : [sofian-bll.github.io/my-og-image](https://sofian-bll.git
 
 ## Demarrage rapide
 
-```bash
-# Installer les dependances
-pnpm install
-
-# Serveur de developpement (http://localhost:3000)
-pnpm dev
-```
-
-### Docker
+### Docker (recommande)
 
 ```bash
 # Production
 docker compose up -d
 
-# Developpement (hot reload)
+# Developpement avec hot reload
 docker compose -f docker-compose.dev.yml up -d
+```
+
+Le `Dockerfile` multi-etapes produit une image de production legere. Les deux fichiers compose sont prets a l'emploi — aucun `.env` requis.
+
+### Local
+
+```bash
+pnpm install
+pnpm dev        # → http://localhost:3000
 ```
 
 <p align="right">(<a href="#readme-top">haut de page</a>)</p>
