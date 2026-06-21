@@ -4,22 +4,20 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Media Pipeline</title>
-<meta name="description" content="Automated media transcoding pipeline — watch, transcode, notify.">
+<title>my-og-image</title>
+<meta name="description" content="Watch, transcode, notify.">
 <meta name="theme-color" content="#0a0908">
-<meta property="og:title" content="Media Pipeline">
-<meta property="og:description" content="Automated media transcoding pipeline — watch, transcode, notify.">
+<meta property="og:title" content="my-og-image">
+<meta property="og:description" content="Watch, transcode, notify.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Media Pipeline">
-<meta name="twitter:description" content="Automated media transcoding pipeline — watch, transcode, notify.">
+<meta name="twitter:title" content="my-og-image">
+<meta name="twitter:description" content="Watch, transcode, notify.">
 <meta name="twitter:image" content="assets/og-image.png">
 <link rel="icon" type="image/png" href="assets/logo.png">
 
@@ -77,8 +75,8 @@ tailwind.config = {
   --muted: rgba(245,240,235,0.58);
 
   /* Accents */
-  --primary: #ff9f43;
-  --secondary: #0abde3;
+  --primary: #ff6b6b;
+  --secondary: #6366f1;
   --accent: #10b981;
 
   --primary-dim: color-mix(in srgb, var(--primary) 20%, transparent);
@@ -86,8 +84,8 @@ tailwind.config = {
   --primary-glow: color-mix(in srgb, var(--primary) 40%, transparent);
 
   /* Typography */
-  --font-display: "DM Serif Display", Georgia, serif;
-  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
 
   /* Light theme */
@@ -184,8 +182,8 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   opacity: var(--grid-opacity);
 }
 
-.radial-1 { background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255,159,67,0.06) 0%, transparent 60%); opacity: 0.5; }
-.radial-2 { background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(10,189,227,0.04) 0%, transparent 60%); opacity: 0.5; }
+.radial-1 { background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255,107,107,0.08) 0%, transparent 60%); opacity: 0.5; }
+.radial-2 { background: radial-gradient(ellipse 60% 50% at 85% 100%, rgba(99,102,241,0.06) 0%, transparent 60%); opacity: 0.5; }
 
 #back-to-top {
   position: fixed; bottom: 32px; right: 32px; z-index: 50;
@@ -232,15 +230,15 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 <!-- @section nav -->
 <nav class="sticky top-0 z-50 bg-bg/70 backdrop-blur-xl border-b border-border/50 py-3 px-6 transition-colors duration-300">
   <div class="w-full max-w-container mx-auto flex items-center justify-between gap-4">
-    <a href="https://github.com/Sofian-bll/media-pipeline" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
+    <a href="https://github.com/Sofian-bll/my-og-image" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
       <div class="text-text group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
         <img src="assets/logo.png" alt="Logo" class="w-10 h-10 rounded-lg">
       </div>
-      <span class="font-bold text-[16px] whitespace-nowrap text-text group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all">Media Pipeline</span>
+      <span class="font-bold text-[16px] whitespace-nowrap text-text group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all">my-og-image</span>
     </a>
 
     <div class="flex items-center gap-3 flex-shrink-0">
-      <a href="https://github.com/Sofian-bll/media-pipeline" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 text-xs font-semibold text-muted hover:text-text transition-colors px-4 py-2 rounded-full border border-border bg-surface hover:border-[var(--primary-dim)] hover:bg-elevated">
+      <a href="https://github.com/Sofian-bll/my-og-image" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 text-xs font-semibold text-muted hover:text-text transition-colors px-4 py-2 rounded-full border border-border bg-surface hover:border-[var(--primary-dim)] hover:bg-elevated">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         GitHub
       </a>
@@ -269,15 +267,15 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 
       <div class="flex items-center gap-2 text-primary uppercase tracking-[0.2em] text-[11px] font-bold mb-8 px-4 py-1.5 rounded-full border border-[var(--primary-dim)] bg-[var(--primary-dimmer)] backdrop-blur-sm">
         <span class="w-1.5 h-1.5 bg-primary rounded-full pulse-dot"></span>
-        Open Source
+        Nuxt + Takumi
       </div>
 
       <h1 class="headline text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.15] mb-8 max-w-4xl text-gradient">
-        Media Pipeline
+        my-og-image
       </h1>
 
       <p class="text-muted text-lg md:text-xl max-w-2xl leading-relaxed mb-12 font-medium">
-        Automated media transcoding pipeline — watch, transcode, notify.
+        Watch, transcode, notify.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 mb-16 w-full sm:w-auto">
@@ -285,7 +283,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           Get Started
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
-        <a href="https://github.com/Sofian-bll/media-pipeline" target="_blank" rel="noopener noreferrer" class="glass px-8 py-3.5 !rounded-full font-bold text-sm text-text hover:bg-elevated transition-colors flex items-center justify-center gap-2">
+        <a href="https://github.com/Sofian-bll/my-og-image" target="_blank" rel="noopener noreferrer" class="glass px-8 py-3.5 !rounded-full font-bold text-sm text-text hover:bg-elevated transition-colors flex items-center justify-center gap-2">
           View on GitHub
         </a>
       </div>
@@ -297,26 +295,26 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
           </div>
           <div class="min-w-0">
-            <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">Worker Pool API</span> <span class="font-semibold text-text">Bun + TypeScript</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight"></div>
+            <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">8</span> <span class="font-semibold text-text">Templates</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">Project to Epitech</div>
           </div>
         </div>
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
-          <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+          <div class="w-9 h-9 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
           </div>
           <div class="min-w-0">
-            <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">Dual Worker</span> <span class="font-semibold text-text">Mac + Cloud</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight"></div>
+            <div class="text-sm"><span class="font-bold text-lg text-secondary leading-tight">Docker</span> <span class="font-semibold text-text">Ready</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">Multi-stage build</div>
           </div>
         </div>
 <div class="glass rounded-xl p-4 flex items-center gap-3 text-left">
-          <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+          <div class="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
           </div>
           <div class="min-w-0">
-            <div class="text-sm"><span class="font-bold text-lg text-primary leading-tight">Orchestration</span> <span class="font-semibold text-text">n8n</span></div>
-            <div class="text-[11px] text-muted mt-0.5 leading-tight"></div>
+            <div class="text-sm"><span class="font-bold text-lg text-accent leading-tight">Obsidian</span> <span class="font-semibold text-text">Sync</span></div>
+            <div class="text-[11px] text-muted mt-0.5 leading-tight">Batch vault updates</div>
           </div>
         </div>
       </div>
@@ -340,35 +338,6 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 <!-- STORY — glass cards with connector dots                      -->
 <!-- ============================================================ -->
 
-<!-- @section story-horizontal -->
-<section class="py-[var(--section-py)] relative">
-  <div class="w-full max-w-container mx-auto px-6">
-    <div class="text-center max-w-container-sm mx-auto mb-20 reveal">
-      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Project Evolution</h2>
-      <div class="text-muted text-lg leading-relaxed"><p class="text-muted">From idea to production pipeline.</p></div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto relative">
-      <div class="hidden md:block absolute top-1/2 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-border to-transparent -translate-y-1/2 z-[-1]"></div>
-            <div class="reveal visible glass rounded-2xl p-6 flex flex-col" style="transition-delay:0.0s">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="text-[10px] font-mono font-bold uppercase tracking-wider border border-secondary/40 text-secondary px-2 py-0.5 rounded-full">June 2026</span>
-          <span class="text-[10px] font-mono font-bold tracking-wider text-muted uppercase"></span>
-        </div>
-        <p class="text-sm text-muted leading-relaxed mb-4 flex-1">Initial commit — watcher, n8n workflow, and worker pool API with Mac SSH transcoding and Discord notifications.</p>
-        
-      </div>
-      <div class="reveal visible glass rounded-2xl p-6 flex flex-col" style="transition-delay:0.1s">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="text-[10px] font-mono font-bold uppercase tracking-wider border border-primary/40 text-primary px-2 py-0.5 rounded-full">v1.0.0</span>
-          <span class="text-[10px] font-mono font-bold tracking-wider text-muted uppercase"></span>
-        </div>
-        <p class="text-sm text-muted leading-relaxed mb-4 flex-1">Release v1.0.0 with bilingual documentation, landing page, and portfolio polish.</p>
-        
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /@section story-horizontal -->
 
 
 <!-- ============================================================ -->
@@ -379,44 +348,37 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
 <section class="py-[var(--section-py)] relative">
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-20 reveal">
-      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">What It Does</h2>
-      <div class="text-muted text-lg leading-relaxed"><p class="text-muted">End-to-end automated video transcoding from your NAS to encoded output.</p></div>
+      <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Features</h2>
+      <div class="text-muted text-lg leading-relaxed"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.0s">
         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Automatic Detection</h3>
-        <p class="text-muted text-sm leading-relaxed">Watches a NAS folder and detects new video files (mkv, avi, mp4) via polling, tracking already-seen files to avoid duplicates.</p>
+        <h3 class="font-bold text-lg">8 Template Types</h3>
+        <p class="text-muted text-sm leading-relaxed">Project, Resource, Task, Aspiration, Machine, Service, System Config, and Epitech Project.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.1s">
-        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Smart Job Dispatch</h3>
-        <p class="text-muted text-sm leading-relaxed">REST API receives transcode jobs from n8n, stores them in SQLite with idempotency tracking, and dispatches to the best available worker.</p>
+        <h3 class="font-bold text-lg">Takumi Renderer</h3>
+        <p class="text-muted text-sm leading-relaxed">Clean, type-driven layouts via @takumi-rs/core. Pure SVG with Satori — no canvas, no headless browser.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.2s">
-        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">SSH Mac Worker</h3>
-        <p class="text-muted text-sm leading-relaxed">Primary transcoding runs on your Mac via SSH + ffmpeg, with automatic retry logic for connection failures and stalled jobs.</p>
+        <h3 class="font-bold text-lg">Obsidian Vault Sync</h3>
+        <p class="text-muted text-sm leading-relaxed">Batch-apply OG URLs across an entire vault via Python scripts. Dry-run mode included.</p>
       </div>
       <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.3s">
         <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
         </div>
-        <h3 class="font-bold text-lg">Cloud Fallback</h3>
-        <p class="text-muted text-sm leading-relaxed">When the Mac is offline, spins up DigitalOcean droplets from a snapshot for on-demand transcoding with cost estimation.</p>
-      </div>
-      <div class="reveal visible glass rounded-2xl p-8 flex flex-col gap-4" style="transition-delay:0.4s">
-        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
-        </div>
-        <h3 class="font-bold text-lg">n8n Orchestration</h3>
-        <p class="text-muted text-sm leading-relaxed">Visual workflow automation connects the watcher to the worker pool and dispatches Discord notifications on job completion or failure.</p>
+        <h3 class="font-bold text-lg">Docker Ready</h3>
+        <p class="text-muted text-sm leading-relaxed">Multi-stage Dockerfile + compose. Deploy to any VPS in minutes.</p>
       </div>
     </div>
   </div>
@@ -437,7 +399,7 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto px-6">
     <div class="text-center max-w-container-sm mx-auto mb-16 reveal">
       <h2 class="headline text-3xl md:text-5xl font-bold mb-6 tracking-tight">Quick Start</h2>
-      <div class="text-muted text-lg"><p class="text-muted">Get up and running with a single Docker Compose command.</p></div>
+      <div class="text-muted text-lg"><p class="text-muted">Get up and running in under 60 seconds.</p></div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div class="reveal visible glass rounded-2xl overflow-hidden flex flex-col group" style="transition-delay:0.0s">
@@ -505,16 +467,62 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
           <span class="text-xs text-muted ml-3 font-mono font-medium tracking-wider select-none">project-architecture</span>
         </div>
         <div class="p-6 bg-[#09090b] dark:bg-transparent overflow-x-auto">
-          <pre class="font-mono text-sm leading-loose text-gray-300">media-pipeline/
-├── watcher/         # Docker container — polls NAS for new files
-├── n8n/             # n8n workflow JSON — orchestration
-├── worker-pool/     # Bun/TypeScript API — job dispatch + transcoding
-├── scripts/         # Maintenance scripts (cleanup.sh)
-├── docs/            # Landing page + OG image
-├── docker-compose.yml
-├── .env.example
+          <pre class="font-mono text-sm leading-loose text-gray-300">my-og-image/
+├── .gitignore
+├── .npmrc
+├── .nuxt/
+│   ├── app.config.mjs
+│   ├── cache/
+│   ├── components.d.ts
+│   ├── dev/
+│   ├── imports.d.ts
+│   ├── manifest/
+│   ├── module/
+│   ├── nitro.json
+│   ├── nuxt-fonts-global.css
+│   ├── nuxt.d.ts
+│   ├── nuxt.json
+│   ├── nuxt.node.d.ts
+│   ├── nuxt.shared.d.ts
+│   ├── schema/
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   ├── tsconfig.server.json
+│   ├── tsconfig.shared.json
+│   └── types/
+├── .output/
+│   ├── nitro.json
+│   ├── public/
+│   └── server/
+├── Dockerfile
+├── Dockerfile.dev
+├── LICENSE
+├── README.fr.md
 ├── README.md
-└── LICENSE</pre>
+├── app.vue
+├── assets/
+├── bun.lock
+├── components/
+│   └── OgImage/
+├── docker-compose.dev.yml
+├── docker-compose.yml
+├── docs/
+│   ├── .nojekyll
+│   ├── assets/
+│   └── index.html
+├── nuxt.config.ts
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── scripts/
+│   ├── apply-og-images-homelab.py
+│   └── apply-og-images.py
+├── server/
+│   └── api/
+├── src/
+│   └── templates/
+└── tsconfig.json</pre>
         </div>
       </div>
     </div>
@@ -533,16 +541,13 @@ a:active, button:active { transform: scale(0.97); transition: transform 0.1s eas
   <div class="w-full max-w-container mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
     <div class="flex flex-col items-center md:items-start gap-1 text-xs text-muted">
       <div class="font-semibold text-text">
-        Media Pipeline
+        my-og-image
       </div>
       <div>MIT License &copy; 2026 Sofian</div>
     </div>
     <div class="flex items-center gap-4 text-sm font-medium text-muted">
-      <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white" alt="TypeScript" class="h-5"></a>
+      <img src="https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white" alt="Node.js" class="h-5">
         <a href="https://www.docker.com/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white" alt="Docker" class="h-5"></a>
-        <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/bash-%23121011.svg?style=flat&logo=gnu-bash&logoColor=white" alt="Bash" class="h-5"></a>
-        <a href="https://ffmpeg.org/" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/ffmpeg-007808?style=flat&logo=ffmpeg&logoColor=white" alt="FFmpeg" class="h-5"></a>
-        <img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=flat&logo=sqlite&logoColor=white" alt="SQLite" class="h-5">
     </div>
   </div>
 </footer>
